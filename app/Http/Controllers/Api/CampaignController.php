@@ -72,4 +72,27 @@ class CampaignController extends Controller
             'campaign' => $campaign,
         ], 201);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/campaigns",
+     *     summary="List all campaigns",
+     *     tags={"Campaigns"},
+     *     security={{"sanctum":{}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="List of campaigns",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/Campaign")
+     *         )
+     *     )
+     * )
+     */
+    public function index(): JsonResponse
+    {
+        $campaigns = $this->campaignRepository->all();
+
+        return response()->json($campaigns);
+    }
 }

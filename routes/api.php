@@ -19,6 +19,7 @@ Route::post('/login', [AuthController::class, 'login']);
 */
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', fn ($request) => $request->user());
+    Route::get('/campaigns', [CampaignController::class, 'index']);
     Route::post('/campaigns', [CampaignController::class, 'store']);
     Route::post('/donations', [DonationController::class, 'store']);
 });
