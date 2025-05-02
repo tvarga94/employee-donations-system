@@ -1,61 +1,190 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Employee Donation System API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This Laravel-based internal donation platform was built for ACME Corp to enhance corporate social responsibility by empowering employees to create and support fundraising campaigns.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* ✅ Employee authentication with Sanctum
+* ✅ Campaign creation
+* ✅ Donation to campaigns with confirmation
+* ✅ Campaign listing
+* ✅ API documentation (Swagger)
+* ✅ Dockerized using Laravel Sail
+* ✅ Pest-powered testing
+* ✅ Repository Pattern architecture
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Tool            | Version        |
+| --------------- | -------------- |
+| PHP             | 8.2            |
+| Laravel         | 11.x           |
+| Laravel Sail    | Latest         |
+| Pest            | ^3.8           |
+| Laravel Sanctum | ^4.0           |
+| MySQL           | 8.0 (via Sail) |
+| Swagger (L5)    | ^10.x          |
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🐳 Docker Setup (Laravel Sail)
 
-## Laravel Sponsors
+This project uses Laravel Sail for local development with Docker. It includes services like MySQL, PHP, and a web server.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prerequisites
 
-### Premium Partners
+* Docker Desktop installed and running
+* Composer installed
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+### Step-by-Step
 
-## Contributing
+1. **Clone the Repository:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   git clone https://github.com/tvarga94/employee-donations-system.git
+   cd employee-donations-system
+   ```
 
-## Code of Conduct
+2. **Install Dependencies:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   composer install
+   ```
 
-## Security Vulnerabilities
+3. **Install Sail (if not present):**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```bash
+   php artisan sail:install --with=mysql
+   ```
 
-## License
+4. **Create `.env` and Set Environment Variables:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+   Then update:
+
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=mysql
+   DB_PORT=3306
+   DB_DATABASE=donations-system
+   DB_USERNAME=sail
+   DB_PASSWORD=password
+   ```
+
+5. **Start the Docker Containers:**
+
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+
+6. **Run Migrations and Seeders:**
+
+   ```bash
+   ./vendor/bin/sail artisan migrate --seed
+   ```
+
+7. **Access the App:**
+
+    * API base URL: `http://localhost`
+    * Swagger UI: `http://localhost/api/documentation`
+
+---
+
+## Running Tests
+
+```bash
+./vendor/bin/sail test
+```
+
+Testing uses:
+
+* SQLite in-memory database (`.env.testing` configured)
+* Pest test framework
+
+---
+
+## API Endpoints
+
+> All routes are prefixed with `/api` and protected by Sanctum (except login).
+
+### Auth
+
+* `POST /api/login` — Get access token
+* `GET /api/user` — Get authenticated user
+
+### Campaigns
+
+* `POST /api/campaigns` — Create campaign
+* `GET /api/campaigns` — List campaigns
+
+### Donations
+
+* `POST /api/donations` — Donate to a campaign
+
+> Full Swagger docs available at `/api/documentation`
+
+---
+
+## Architecture Overview
+
+### Repository Pattern
+
+We use the repository pattern to decouple business logic from Eloquent:
+
+* Interface-driven (`App\Repositories\Interfaces`)
+* Bound in `AppServiceProvider`
+
+### Request Validation
+
+* Done via `FormRequest` classes (`StoreCampaignRequest`, etc.)
+
+### Authentication
+
+* Laravel Sanctum used for API token-based authentication
+
+### Swagger (L5)
+
+* Installed and configured with `app/Swagger/OpenApiSpec.php`
+* Each controller includes inline annotations
+
+### Testing
+
+* Pest with `RefreshDatabase`
+* Dedicated `DonationTest`, `CampaignTest`, etc.
+* `.env.testing` uses SQLite in-memory for speed and safety
+
+---
+
+## Assumptions
+
+* Payment system was mocked via donation record creation (per task note).
+* No full CRUD or UI needed — only what was explicitly requested.
+* Campaign "management" interpreted as creation + listing.
+
+---
+
+## 📦 Future Enhancements (if needed)
+
+* Payment gateway integration (Stripe, PayPal)
+* Campaign editing/deletion
+* Donation history or campaign stats
+* Admin view
+* UI for employee interaction
+
+---
+
+## 🧑‍💻 Author
+
+Tamas (PHP Developer)
+
+---
+
+> ✅ Fully scoped to assignment — functional, secure, and Docker-ready.
