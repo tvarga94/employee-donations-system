@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DonationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CampaignController;
@@ -18,8 +19,6 @@ Route::post('/login', [AuthController::class, 'login']);
 */
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', fn ($request) => $request->user());
-
-    // Campaign routes
     Route::post('/campaigns', [CampaignController::class, 'store']);
-    // (future: Route::get('/campaigns'), etc.)
+    Route::post('/donations', [DonationController::class, 'store']);
 });
