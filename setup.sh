@@ -27,4 +27,4 @@ echo "Running PHPStan analysis..."
 
 echo ""
 echo "Setup complete!"
-echo "Swagger available at: http://localhost/api/documentation"
+echo "Swagger docs available at: http://localhost:8000/api/documentation"

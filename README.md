@@ -82,7 +82,7 @@ This project uses Laravel Sail for local development with Docker. It includes se
 4. **Access the App:**
 
     * API base URL: `http://localhost`
-    * Swagger UI: `http://localhost/api/documentation`
+    * Swagger UI: `http://localhost:8000/api/documentation`
 
 ---
 
