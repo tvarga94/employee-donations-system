@@ -10,6 +10,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        User::truncate();
         User::create([
             'name' => 'Test Employee',
             'email' => 'employee@example.com',

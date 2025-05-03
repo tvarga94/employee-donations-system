@@ -4,15 +4,6 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-/*
-|--------------------------------------------------------------------------
-| Bind this file to Laravel's TestCase
-|--------------------------------------------------------------------------
-|
-| Pest needs to know this file should use Laravel's test features.
-| This ensures `$this->postJson()` and facades work properly.
-|
-*/
 uses(Tests\TestCase::class, RefreshDatabase::class)->in(__DIR__);
 
 it('requires authentication to create a campaign', function () {
