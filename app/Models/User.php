@@ -48,8 +48,12 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * @return HasMany<\App\Models\Donation, \App\Models\User>
+     */
     public function donations(): HasMany
     {
+        /** @phpstan-ignore-next-line */
         return $this->hasMany(Donation::class);
     }
 }

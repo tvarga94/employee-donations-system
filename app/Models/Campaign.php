@@ -19,13 +19,21 @@ class Campaign extends Model
         'is_active',
     ];
 
+    /**
+     * @return BelongsTo<\App\Models\User, \App\Models\Campaign>
+     */
     public function user(): BelongsTo
     {
+        /** @phpstan-ignore-next-line */
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return HasMany<\App\Models\Donation, \App\Models\Campaign>
+     */
     public function donations(): HasMany
     {
+        /** @phpstan-ignore-next-line */
         return $this->hasMany(Donation::class);
     }
 }

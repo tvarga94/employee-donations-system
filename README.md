@@ -77,6 +77,7 @@ This project uses Laravel Sail for local development with Docker. It includes se
     * Generate app key
     * Run migrations and seeders
     * Run the test suite
+    * Run PHPStan analysis
 
 4. **Access the App:**
 

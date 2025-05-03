@@ -22,6 +22,9 @@ echo "Running migrations and seeders..."
 echo "Running tests..."
 ./vendor/bin/sail test
 
+echo "Running PHPStan analysis..."
+./vendor/bin/sail exec laravel.test ./vendor/bin/phpstan analyse
+
 echo ""
 echo "Setup complete!"
 echo "Swagger available at: http://localhost/api/documentation"
