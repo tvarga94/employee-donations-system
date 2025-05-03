@@ -149,6 +149,19 @@ We use the repository pattern to decouple business logic from Eloquent:
 * Dedicated `DonationTest`, `CampaignTest`, etc.
 * `.env.testing` uses SQLite in-memory for speed and safety
 
+### Accessing the database
+```bash
+./vendor/bin/sail mysql
+```
+
+### User that could be used for login (generating token) after the user table is populated
+```bash
+{
+  "email": "employee@example.com",
+  "password": "password"
+}
+```
+
 ---
 
 ## Assumptions
