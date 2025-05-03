@@ -241,6 +241,7 @@
                                     },
                                     "amount": {
                                         "type": "number",
+                                        "format": "float",
                                         "example": 50
                                     }
                                 },

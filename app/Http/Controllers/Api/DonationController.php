@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreDonationRequest;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 
 class DonationController extends Controller
 {
+
     /**
      * @OA\Post(
      *     path="/api/donations",
@@ -21,7 +23,7 @@ class DonationController extends Controller
      *         @OA\JsonContent(
      *             required={"campaign_id", "amount"},
      *             @OA\Property(property="campaign_id", type="integer", example=1),
-     *             @OA\Property(property="amount", type="number", example=50.00)
+     *             @OA\Property(property="amount", type="number", format="float", example=50.00)
      *         )
      *     ),
      *     @OA\Response(
@@ -43,18 +45,12 @@ class DonationController extends Controller
      *     @OA\Response(response=422, description="Validation failed")
      * )
      */
-
-    public function store(Request $request): JsonResponse
+    public function store(StoreDonationRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'campaign_id' => ['required', 'exists:campaigns,id'],
-            'amount' => ['required', 'numeric', 'min:1'],
-        ]);
-
         $donation = Donation::create([
             'user_id' => Auth::id(),
-            'campaign_id' => $validated['campaign_id'],
-            'amount' => $validated['amount'],
+            'campaign_id' => $request->input('campaign_id'),
+            'amount' => $request->input('amount'),
         ]);
 
         return response()->json([
