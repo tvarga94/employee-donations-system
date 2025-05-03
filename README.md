@@ -49,49 +49,36 @@ This project uses Laravel Sail for local development with Docker. It includes se
    cd employee-donations-system
    ```
 
-2. **Install Dependencies:**
-
-   ```bash
-   composer install
-   ```
-
-3. **Install Sail (if not present):**
-
-   ```bash
-   php artisan sail:install --with=mysql
-   ```
-
-4. **Create `.env` and Set Environment Variables:**
+2. **Create `.env` File:**
 
    ```bash
    cp .env.example .env
-   php artisan key:generate
    ```
 
-   Then update:
-
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=mysql
-   DB_PORT=3306
-   DB_DATABASE=donations-system
-   DB_USERNAME=sail
-   DB_PASSWORD=password
-   ```
-
-5. **Start the Docker Containers:**
+   **Create `.env.testing` File for tests:**
 
    ```bash
-   ./vendor/bin/sail up -d
+   cp .env.testing.example .env.testing
    ```
 
-6. **Run Migrations and Seeders:**
+3. **Run the Setup Script:**
+
+   A script is provided to streamline local setup:
 
    ```bash
-   ./vendor/bin/sail artisan migrate --seed
+   chmod +x setup.sh
+   ./setup.sh
    ```
 
-7. **Access the App:**
+   This script will:
+
+    * Install dependencies
+    * Spin up Docker containers
+    * Generate app key
+    * Run migrations and seeders
+    * Run the test suite
+
+4. **Access the App:**
 
     * API base URL: `http://localhost`
     * Swagger UI: `http://localhost/api/documentation`
